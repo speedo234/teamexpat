@@ -1,6 +1,7 @@
 package com.teamexpat.service.impl;
 
 
+import com.teamexpat.enums.Direction;
 import com.teamexpat.exception.InvalidInputException;
 import com.teamexpat.service.ArrayTraversalService;
 import com.teamexpat.service.ValidationService;
@@ -44,6 +45,62 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             listArrayList.add(integerList);
         }
         return listArrayList;
+    }
+
+
+    public String doArrayTraversal(List<List<Integer>> integerList){
+        StringBuilder stringBuilder = new StringBuilder();
+        Direction direction = Direction.RIGHT;
+        int updatedArrayLength = 0;
+        updatedArrayLength = integerList.size();
+        int xStart, yStart, xEnd, yEnd= 0;
+        final int rightOffset = +1;
+        final int leftOffset = -1;
+        //
+        xEnd = integerList.size();
+        yEnd= integerList.size();
+
+        if(direction == Direction.RIGHT){
+            for(int x = 0; x < updatedArrayLength; x++ ){
+                stringBuilder.append( integerList.get(0).get(x) );//todo zeros should use the iteration index variable to move accordingly
+                doSingleLineProcessor(stringBuilder, x, integerList.size());
+            }
+            direction = Direction.DOWN;
+        }
+        if(direction == Direction.DOWN){
+            for(int y = 1; y < updatedArrayLength; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                stringBuilder.append( integerList.get(y).get(updatedArrayLength-1) );
+                doSingleLineProcessor(stringBuilder, y, integerList.size());
+            }
+            direction = Direction.LEFT;
+        }
+        if(direction == Direction.LEFT){
+            for(int x = updatedArrayLength-1; x > 0; x-- ){
+                stringBuilder.append( integerList.get(updatedArrayLength-1).get(x-1) );
+                doSingleLineProcessor(stringBuilder, x, integerList.size());
+            }
+            direction = Direction.UP;
+            updatedArrayLength = updatedArrayLength-2;
+        }
+
+
+        stringBuilder.append("```");
+        return stringBuilder.toString();
+    }
+
+
+
+    private void doMultiLineProcessor(StringBuilder stringBuilder, int indexControl, int listSize){
+        if(indexControl+1 != listSize)
+            stringBuilder.append(",");
+
+        if((indexControl+1) % listSize == 0)
+            stringBuilder.append("\n");
+    }
+
+
+    public void doSingleLineProcessor(StringBuilder stringBuilder, int listSize, int elementCount){
+        stringBuilder.append(",");
     }
 
 

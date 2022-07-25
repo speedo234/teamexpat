@@ -43,14 +43,19 @@ public class TraverseOnStart implements ApplicationRunner {
 
         LOGGER.info(":::2:::arrayFromCSVRecords.size==> {} ", arrayFromCSVRecords.size());
 
-        for( List<Integer> integerList :arrayFromCSVRecords){
+        String resultString = arrayTraversalService.doArrayTraversal(arrayFromCSVRecords);
 
-            for( Integer integer :integerList){
-                System.out.println(integer);
-            }
+        System.out.println(resultString);
 
-        }
 
+
+        doGracefulShutdown();
 
     }
+
+
+    private void doGracefulShutdown(){
+        System.exit(1);
+    }
+
 }

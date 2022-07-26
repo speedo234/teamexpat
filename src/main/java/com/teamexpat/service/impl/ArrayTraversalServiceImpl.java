@@ -66,19 +66,19 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             if(direction == Direction.RIGHT){
                 for(int x = 0; x <= control-startingPoint; x++ ){
                     stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );
-                    doSingleLineProcessor(stringBuilder);
+                    appendComma(stringBuilder);
                 }
-                doSpacing(stringBuilder);
+                appendSpace(stringBuilder);
                 direction = Direction.DOWN;
             }
             //
             if(direction == Direction.DOWN){
                 for(int y = startingPoint+positiveOffset; y <= control; y++ ){
                     stringBuilder.append( integerList.get(y).get(control) );
-                    doSingleLineProcessor(stringBuilder);
+                    appendComma(stringBuilder);
                 }
                 if(control!=2)
-                    doSpacing(stringBuilder);
+                    appendSpace(stringBuilder);
 
                 direction = Direction.LEFT;
                 yStart = yStart+positiveOffset;
@@ -89,18 +89,18 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                     stringBuilder.append( integerList.get(control).get( x ) );
 //                    doSingleLineProcessor(stringBuilder);
                     if(control!=2)
-                        doSingleLineProcessor(stringBuilder);
+                        appendComma(stringBuilder);
                 }
-                doSpacing(stringBuilder);
+                appendSpace(stringBuilder);
                 direction = Direction.UP;
             }
             //
             if(direction == Direction.UP){
                 for(int y = control-1; y >= yStart; y-- ){
                     stringBuilder.append( integerList.get(y).get(startingPoint) );
-                    doSingleLineProcessor(stringBuilder);
+                    appendComma(stringBuilder);
                 }
-                doSpacing(stringBuilder);
+                appendSpace(stringBuilder);
                 direction = Direction.RIGHT;
                 xStart = xStart+positiveOffset;
             }
@@ -111,22 +111,12 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         return stringBuilder.toString();
     }
 
-
-
-    private void doMultiLineProcessor(StringBuilder stringBuilder, int indexControl, int listSize){
-        if(indexControl+1 != listSize)
-            stringBuilder.append(",");
-
-        if((indexControl+1) % listSize == 0)
-            stringBuilder.append("\n");
-    }
-
-
-    public void doSingleLineProcessor(StringBuilder stringBuilder){
+    
+    public void appendComma(StringBuilder stringBuilder){
         stringBuilder.append(",");
     }
 
-    public void doSpacing(StringBuilder stringBuilder){
+    public void appendSpace(StringBuilder stringBuilder){
         stringBuilder.append(" ");
     }
 

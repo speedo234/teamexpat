@@ -77,8 +77,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                     stringBuilder.append( integerList.get(y).get(control) );
                     doSingleLineProcessor(stringBuilder);
                 }
-                if( (control) < 2)
-                    doSpacing(stringBuilder);
+                doSpacing(stringBuilder);
                 direction = Direction.LEFT;
                 yStart = yStart+positiveOffset;
             }

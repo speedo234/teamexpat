@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
@@ -34,15 +33,9 @@ public class TraverseOnStart implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        File file = fileService.convertStringToFile(inputFileDirectory);
-        MultipartFile multipartFile = fileService.convertFileToMultipartFile(file);
-        final List<CSVRecord> csvRecordsFromInputFile = fileService.getCSVRecordsFromInputFile(multipartFile);
-        LOGGER.info(":::1:::csvRecordsFromInputFile.size==> {} ", csvRecordsFromInputFile.size());
-
+        File file = fileService.convertStringToFile(inputFileDirectory);//handle global exception here
+        final List<CSVRecord> csvRecordsFromInputFile = fileService.getCSVRecordsFromInputFile(file);
         final List<List<Integer>> arrayFromCSVRecords = arrayTraversalService.getArrayFromCSVRecords(csvRecordsFromInputFile);
-
-        LOGGER.info(":::2:::arrayFromCSVRecords.size==> {} ", arrayFromCSVRecords.size());
-
         String resultString = arrayTraversalService.doArrayTraversal(arrayFromCSVRecords);
 
         System.out.println(resultString);

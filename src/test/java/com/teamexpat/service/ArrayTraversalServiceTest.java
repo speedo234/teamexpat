@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,10 +47,10 @@ class ArrayTraversalServiceTest {
     @Test
     void getArrayFromCSVRecords() throws IOException {
 
-        FileInputStream inputFile = new FileInputStream( "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv");
-        MockMultipartFile file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", inputFile);
+        final String inputFileDirectory = "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv";
+        final File file = new File(inputFileDirectory);
 
-        CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader(file.getInputStream()));
+        CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader( new FileInputStream( file ) ));
         List<CSVRecord> csvRecordList = records.getRecords();
 
         when(validationService.isInputAnInteger(Mockito.anyString())).thenReturn(true);
@@ -57,7 +58,6 @@ class ArrayTraversalServiceTest {
         List<List<Integer>> actual = arrayTraversalService.getArrayFromCSVRecords(csvRecordList);
 
         assertThat(actual.size()).isGreaterThan(0);
-
     }
 
     @Test

@@ -13,10 +13,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,12 +46,12 @@ class ValidationServiceImplTest {
     @Test
     void isValidArrayFormat() throws IOException {
 
-        FileInputStream inputFile = new FileInputStream( "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv");
-        MockMultipartFile file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", inputFile);
+        final String inputFileDirectory = "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv";
+        final File file = new File(inputFileDirectory);
 
         boolean expected = true;
 
-        CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader(file.getInputStream()));
+        CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader( new FileInputStream( file ) ));
         List<CSVRecord> csvRecordList = records.getRecords();
 
         boolean actual = validationService.isValidArrayFormat(csvRecordList);

@@ -9,14 +9,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
@@ -46,18 +44,6 @@ class FileServiceImplTest {
 
     }
 
-    @Test
-    void convertFileToMultipartFile() throws IOException {
-
-        String inputDirectoryString = "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv";
-
-        File file = fileService.convertStringToFile(inputDirectoryString);
-
-        MultipartFile actual = fileService.convertFileToMultipartFile(file);
-
-        assertThat(actual).isInstanceOf(MultipartFile.class);
-
-    }
 
     @Test
     void getCSVRecordsFromInputFile() throws IOException {
@@ -66,9 +52,7 @@ class FileServiceImplTest {
 
         File file = fileService.convertStringToFile(inputDirectoryString);
 
-        MultipartFile multipartFile = fileService.convertFileToMultipartFile(file);
-
-        List<CSVRecord> actual = fileService.getCSVRecordsFromInputFile(multipartFile);
+        List<CSVRecord> actual = fileService.getCSVRecordsFromInputFile( file );
 
         assertThat(actual.size()).isGreaterThan(0);
     }

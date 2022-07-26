@@ -19,6 +19,9 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
 
     ValidationService validationService;
 
+    final static int positiveOffset = +1;
+    private static final int negativeOffset = -1;
+
 
     @Autowired
     public ArrayTraversalServiceImpl(ValidationService validationService) {
@@ -51,55 +54,63 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();
         Direction direction = Direction.RIGHT;
-        final int positiveOffset = +1;
-        final int negativeOffset = -1;
+
         final int fixedArrayLength = integerList.size()+negativeOffset;
         int shrinkingArrayLength = integerList.size()+negativeOffset;
 
 
         for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
 
-            if(direction == Direction.RIGHT){
-                for(int x = 0; x <= shrinkingArrayLength-startingPoint; x++ ){
-                    stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );
-                    appendComma(stringBuilder);
-                }
-                appendSpace(stringBuilder);
-                direction = Direction.DOWN;
-            }
-            //
-            if(direction == Direction.DOWN){
-                for(int y = startingPoint+positiveOffset; y <= shrinkingArrayLength; y++ ){
-                    stringBuilder.append( integerList.get(y).get(shrinkingArrayLength) );
-                    appendComma(stringBuilder);
-                }
-                if(shrinkingArrayLength!=2)
-                    appendSpace(stringBuilder);
-
-                direction = Direction.LEFT;
-            }
-            //
-            if(direction == Direction.LEFT){
-                for(int x = shrinkingArrayLength+negativeOffset; x >= startingPoint; x-- ){
-                    stringBuilder.append( integerList.get(shrinkingArrayLength).get( x ) );
-                    if(shrinkingArrayLength!=2)
-                        appendComma(stringBuilder);
-                }
-                appendSpace(stringBuilder);
-                direction = Direction.UP;
-            }
-            //
-            if(direction == Direction.UP){
-                for(int y = shrinkingArrayLength+negativeOffset; y >= startingPoint+positiveOffset; y-- ){
-                    stringBuilder.append( integerList.get(y).get(startingPoint) );
-                    appendComma(stringBuilder);
-                }
-                appendSpace(stringBuilder);
-                direction = Direction.RIGHT;
-            }
+            doRightTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
+            doDownTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
+            doLeftTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
+            doUpTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
             shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
         }
         return stringBuilder.toString();
+    }
+
+
+    private void doRightTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
+            for(int x = 0; x <= shrinkingArrayLength-startingPoint; x++ ){
+                stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );
+                appendComma(stringBuilder);
+            }
+            appendSpace(stringBuilder);
+    }
+
+
+    private void doDownTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
+        for(int y = startingPoint+positiveOffset; y <= shrinkingArrayLength; y++ ){
+            stringBuilder.append( integerList.get(y).get(shrinkingArrayLength) );
+            appendComma(stringBuilder);
+        }
+        if(shrinkingArrayLength!=2)
+            appendSpace(stringBuilder);
+    }
+
+
+    private void doLeftTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
+        for(int x = shrinkingArrayLength+negativeOffset; x >= startingPoint; x-- ){
+            stringBuilder.append( integerList.get(shrinkingArrayLength).get( x ) );
+            if(shrinkingArrayLength!=2)
+                appendComma(stringBuilder);
+        }
+        appendSpace(stringBuilder);
+    }
+
+
+    private void doUpTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
+        for(int y = shrinkingArrayLength+negativeOffset; y >= startingPoint+positiveOffset; y-- ){
+            stringBuilder.append( integerList.get(y).get(startingPoint) );
+            appendComma(stringBuilder);
+        }
+        appendSpace(stringBuilder);
+    }
+
+
+    private void shrinkArrayLength(){
+
     }
 
 

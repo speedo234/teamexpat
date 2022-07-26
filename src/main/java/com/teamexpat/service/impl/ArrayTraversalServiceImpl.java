@@ -51,20 +51,18 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();
         Direction direction = Direction.RIGHT;
-        int updatedArrayLength = 0;
-        updatedArrayLength = integerList.size()-1;
+        int fixedArrayLength = integerList.size()-1;
+        int shrinkingArrayLength = integerList.size()-1;
         int xStart = 0, yStart = 0, xEnd = integerList.size()-1, yEnd= integerList.size()-1;
         final int positiveOffset = +1;
         final int negativeOffset = -1;
         //
-        int control = updatedArrayLength;
-        System.out.println(":::1:::updatedArrayLength=-> "+updatedArrayLength);
 
 
-        for(int startingPoint = 0; startingPoint < updatedArrayLength; startingPoint++ ){
+        for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
 
             if(direction == Direction.RIGHT){
-                for(int x = 0; x <= control-startingPoint; x++ ){
+                for(int x = 0; x <= shrinkingArrayLength-startingPoint; x++ ){
                     stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );
                     appendComma(stringBuilder);
                 }
@@ -73,11 +71,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.DOWN){
-                for(int y = startingPoint+positiveOffset; y <= control; y++ ){
-                    stringBuilder.append( integerList.get(y).get(control) );
+                for(int y = startingPoint+positiveOffset; y <= shrinkingArrayLength; y++ ){
+                    stringBuilder.append( integerList.get(y).get(shrinkingArrayLength) );
                     appendComma(stringBuilder);
                 }
-                if(control!=2)
+                if(shrinkingArrayLength!=2)
                     appendSpace(stringBuilder);
 
                 direction = Direction.LEFT;
@@ -85,10 +83,10 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.LEFT){
-                for(int x = control-1; x >= startingPoint; x-- ){
-                    stringBuilder.append( integerList.get(control).get( x ) );
+                for(int x = shrinkingArrayLength-1; x >= startingPoint; x-- ){
+                    stringBuilder.append( integerList.get(shrinkingArrayLength).get( x ) );
 //                    doSingleLineProcessor(stringBuilder);
-                    if(control!=2)
+                    if(shrinkingArrayLength!=2)
                         appendComma(stringBuilder);
                 }
                 appendSpace(stringBuilder);
@@ -96,7 +94,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.UP){
-                for(int y = control-1; y >= yStart; y-- ){
+                for(int y = shrinkingArrayLength-1; y >= yStart; y-- ){
                     stringBuilder.append( integerList.get(y).get(startingPoint) );
                     appendComma(stringBuilder);
                 }
@@ -104,14 +102,12 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                 direction = Direction.RIGHT;
                 xStart = xStart+positiveOffset;
             }
-            control = control-1;
+            shrinkingArrayLength = shrinkingArrayLength-1;
         }
-
-
         return stringBuilder.toString();
     }
 
-    
+
     public void appendComma(StringBuilder stringBuilder){
         stringBuilder.append(",");
     }

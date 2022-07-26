@@ -51,12 +51,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();
         Direction direction = Direction.RIGHT;
-        int fixedArrayLength = integerList.size()-1;
+        final int fixedArrayLength = integerList.size()-1;
         int shrinkingArrayLength = integerList.size()-1;
-        int xStart = 0, yStart = 0, xEnd = integerList.size()-1, yEnd= integerList.size()-1;
+        int yStart = 0;
         final int positiveOffset = +1;
         final int negativeOffset = -1;
-        //
 
 
         for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
@@ -83,9 +82,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.LEFT){
-                for(int x = shrinkingArrayLength-1; x >= startingPoint; x-- ){
+                for(int x = shrinkingArrayLength+negativeOffset; x >= startingPoint; x-- ){
                     stringBuilder.append( integerList.get(shrinkingArrayLength).get( x ) );
-//                    doSingleLineProcessor(stringBuilder);
                     if(shrinkingArrayLength!=2)
                         appendComma(stringBuilder);
                 }
@@ -94,15 +92,14 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.UP){
-                for(int y = shrinkingArrayLength-1; y >= yStart; y-- ){
+                for(int y = shrinkingArrayLength+negativeOffset; y >= yStart; y-- ){
                     stringBuilder.append( integerList.get(y).get(startingPoint) );
                     appendComma(stringBuilder);
                 }
                 appendSpace(stringBuilder);
                 direction = Direction.RIGHT;
-                xStart = xStart+positiveOffset;
             }
-            shrinkingArrayLength = shrinkingArrayLength-1;
+            shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
         }
         return stringBuilder.toString();
     }

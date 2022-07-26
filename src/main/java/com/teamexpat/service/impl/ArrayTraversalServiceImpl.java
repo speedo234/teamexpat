@@ -83,7 +83,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.LEFT){
-                for(int x = control-1; x >= 0; x-- ){
+                for(int x = control-1; x >= startingPoint; x-- ){
                     stringBuilder.append( integerList.get(control).get( x ) );
                     doSingleLineProcessor(stringBuilder);
                 }

@@ -53,30 +53,32 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         Direction direction = Direction.RIGHT;
         int updatedArrayLength = 0;
         updatedArrayLength = integerList.size();
-        int xStart, yStart, xEnd, yEnd= 0;
-        final int rightOffset = +1;
-        final int leftOffset = -1;
+        int xStart = 0, yStart = 0, xEnd = integerList.size()-1, yEnd= integerList.size()-1;
+        final int positiveOffset = +1;
+        final int negativeOffset = -1;
         //
-        xEnd = integerList.size();
-        yEnd= integerList.size();
 
         if(direction == Direction.RIGHT){
-            for(int x = 0; x < updatedArrayLength; x++ ){
-                stringBuilder.append( integerList.get(0).get(x) );//todo zeros should use the iteration index variable to move accordingly
+            for(int x = xStart; x <= xEnd; x++ ){
+                stringBuilder.append( integerList.get(yStart).get(x) );//todo zeros should use the iteration index variable to move accordingly
                 doSingleLineProcessor(stringBuilder, x, integerList.size());
             }
             direction = Direction.DOWN;
+            xStart = xStart+1;
         }
+        //
         if(direction == Direction.DOWN){
-            for(int y = 1; y < updatedArrayLength; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
-                stringBuilder.append( integerList.get(y).get(updatedArrayLength-1) );
+            for(int y = yStart+positiveOffset; y <= yEnd; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                stringBuilder.append( integerList.get(y).get(xEnd) );
                 doSingleLineProcessor(stringBuilder, y, integerList.size());
             }
             direction = Direction.LEFT;
+            yStart = yStart+positiveOffset;
         }
+        //
         if(direction == Direction.LEFT){
-            for(int x = updatedArrayLength-1; x > 0; x-- ){
-                stringBuilder.append( integerList.get(updatedArrayLength-1).get(x-1) );
+            for(int x = xEnd-1; x >= 0; x-- ){
+                stringBuilder.append( integerList.get(yEnd).get(x) );
                 doSingleLineProcessor(stringBuilder, x, integerList.size());
             }
             direction = Direction.UP;

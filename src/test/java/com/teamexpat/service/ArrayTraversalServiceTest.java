@@ -33,46 +33,51 @@ import static org.mockito.Mockito.when;
 class ArrayTraversalServiceTest {
 
 
-    FileInputStream inputFile;
-    MockMultipartFile file;
-
     @InjectMocks
     ArrayTraversalServiceImpl arrayTraversalService;
 
     @Mock
     ValidationServiceImpl validationService;
 
-    private List<List<Integer>> integerList1;
-
     @BeforeEach
     void setUp() throws IOException {
-        inputFile = new FileInputStream( "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv");
-        file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", inputFile);
-
-        integerList1 = new ArrayList<>();
-        List<Integer> integerList = Arrays.asList(1,2,3);
-        integerList1.add(integerList);
-        integerList = Arrays.asList(4,5,6);
-        integerList1.add(integerList);
-        integerList = Arrays.asList(7,8,9);
-        integerList1.add(integerList);
     }
 
     @Test
     void getArrayFromCSVRecords() throws IOException {
+
+        FileInputStream inputFile = new FileInputStream( "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv");
+        MockMultipartFile file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", inputFile);
 
         CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader(file.getInputStream()));
         List<CSVRecord> csvRecordList = records.getRecords();
 
         when(validationService.isInputAnInteger(Mockito.anyString())).thenReturn(true);
 
-        List<List<Integer>> listArrayList = arrayTraversalService.getArrayFromCSVRecords(csvRecordList);
+        List<List<Integer>> actual = arrayTraversalService.getArrayFromCSVRecords(csvRecordList);
 
-        assertThat(listArrayList.size()).isGreaterThan(0);
+        assertThat(actual.size()).isGreaterThan(0);
 
     }
 
-    @Disabled
+    @Test
     void doArrayTraversal() {
+
+        List<List<Integer>> integerList1 = new ArrayList<>();
+        List<Integer> integerList = Arrays.asList(1,2,3,4);
+        integerList1.add(integerList);
+        integerList = Arrays.asList(5,6,7,8);
+        integerList1.add(integerList);
+        integerList = Arrays.asList(9,10,11,12);
+        integerList1.add(integerList);
+        integerList = Arrays.asList(13,14,15,16);
+        integerList1.add(integerList);
+
+        final String expected = "1,2,3,4, 8,12,16, 15,14,13, 9,5, 6,7, 11,10";
+
+        String actual = arrayTraversalService.doArrayTraversal(integerList1);
+
+        assertThat(actual).isEqualTo(expected);
+
     }
 }

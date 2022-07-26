@@ -61,10 +61,10 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         System.out.println(":::1:::updatedArrayLength=-> "+updatedArrayLength);
 
 
-        for(int startingPoint = 0; startingPoint < 1/*updatedArrayLength*/; startingPoint++ ){
+        for(int startingPoint = 0; startingPoint < 2/*updatedArrayLength*/; startingPoint++ ){
 
             if(direction == Direction.RIGHT){
-                for(int x = 0; x <= xEnd; x++ ){
+                for(int x = 0; x <= control-startingPoint; x++ ){
                     stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );//todo zeros should use the iteration index variable to move accordingly
                     doSingleLineProcessor(stringBuilder);
                 }
@@ -100,11 +100,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                 direction = Direction.RIGHT;
                 xStart = xStart+positiveOffset;
             }
+            control = control-1;
         }
-
-
-
-
 
 
         return stringBuilder.toString();

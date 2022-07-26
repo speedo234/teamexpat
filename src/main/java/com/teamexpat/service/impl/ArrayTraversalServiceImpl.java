@@ -1,7 +1,6 @@
 package com.teamexpat.service.impl;
 
 
-import com.teamexpat.enums.Direction;
 import com.teamexpat.exception.InvalidInputException;
 import com.teamexpat.service.ArrayTraversalService;
 import com.teamexpat.service.ValidationService;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -21,7 +19,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
 
     ValidationService validationService;
 
-    final static int positiveOffset = +1;
+    private static final int positiveOffset = +1;
     private static final int negativeOffset = -1;
 
 
@@ -41,7 +39,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
 
             for(int i = 0; i < tempArrayLine.size(); i++){
 
-                //todo refactor validation out to an independent loop
+                //todo: refactor validation out to an independent loop
                 if(!validationService.isInputAnInteger( tempArrayLine.get(i).trim() ))
                     throw new InvalidInputException("value '"+tempArrayLine.get(i).trim()+"' entered at index "+x+" "+i+" is NOT a valid integer...");
 
@@ -55,7 +53,6 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
 
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();
-        Direction direction = Direction.RIGHT;
 
         final int fixedArrayLength = integerList.size()+negativeOffset;
         MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+negativeOffset);

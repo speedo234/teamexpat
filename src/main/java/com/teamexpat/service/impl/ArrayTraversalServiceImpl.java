@@ -61,11 +61,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         System.out.println(":::1:::updatedArrayLength=-> "+updatedArrayLength);
 
 
-        for(int startingPoint = 0; startingPoint < 2/*updatedArrayLength*/; startingPoint++ ){
+        for(int startingPoint = 0; startingPoint < updatedArrayLength; startingPoint++ ){
 
             if(direction == Direction.RIGHT){
                 for(int x = 0; x <= control-startingPoint; x++ ){
-                    stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );//todo zeros should use the iteration index variable to move accordingly
+                    stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );
                     doSingleLineProcessor(stringBuilder);
                 }
                 doSpacing(stringBuilder);
@@ -73,12 +73,10 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.DOWN){
-                for(int y = startingPoint+positiveOffset; y <= control; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                for(int y = startingPoint+positiveOffset; y <= control; y++ ){
                     stringBuilder.append( integerList.get(y).get(control) );
                     doSingleLineProcessor(stringBuilder);
                 }
-//                doSpacing(stringBuilder);
-
                 if(control!=2)
                     doSpacing(stringBuilder);
 
@@ -98,7 +96,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             }
             //
             if(direction == Direction.UP){
-                for(int y = control-1; y >= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                for(int y = control-1; y >= yStart; y-- ){
                     stringBuilder.append( integerList.get(y).get(startingPoint) );
                     doSingleLineProcessor(stringBuilder);
                 }

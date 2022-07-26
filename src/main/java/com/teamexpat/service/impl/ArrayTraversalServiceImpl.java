@@ -77,7 +77,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                     stringBuilder.append( integerList.get(y).get(control) );
                     doSingleLineProcessor(stringBuilder);
                 }
-                doSpacing(stringBuilder);
+//                doSpacing(stringBuilder);
+
+                if(control!=2)
+                    doSpacing(stringBuilder);
+
                 direction = Direction.LEFT;
                 yStart = yStart+positiveOffset;
             }
@@ -125,7 +129,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     }
 
     public void doSpacing(StringBuilder stringBuilder){
-        stringBuilder.append("   ");
+        stringBuilder.append(" ");
     }
 
 

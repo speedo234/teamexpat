@@ -61,17 +61,18 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         if(direction == Direction.RIGHT){
             for(int x = xStart; x <= xEnd; x++ ){
                 stringBuilder.append( integerList.get(yStart).get(x) );//todo zeros should use the iteration index variable to move accordingly
-                doSingleLineProcessor(stringBuilder, x, integerList.size());
+                doSingleLineProcessor(stringBuilder);
             }
+            doSpacing(stringBuilder);
             direction = Direction.DOWN;
-//            xStart = xStart+positiveOffset;
         }
         //
         if(direction == Direction.DOWN){
             for(int y = yStart+positiveOffset; y <= yEnd; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
                 stringBuilder.append( integerList.get(y).get(xEnd) );
-                doSingleLineProcessor(stringBuilder, y, integerList.size());
+                doSingleLineProcessor(stringBuilder);
             }
+            doSpacing(stringBuilder);
             direction = Direction.LEFT;
             yStart = yStart+positiveOffset;
         }
@@ -79,8 +80,9 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         if(direction == Direction.LEFT){
             for(int x = xEnd+negativeOffset; x >= 0; x-- ){
                 stringBuilder.append( integerList.get(yEnd).get(x) );
-                doSingleLineProcessor(stringBuilder, x, integerList.size());
+                doSingleLineProcessor(stringBuilder);
             }
+            doSpacing(stringBuilder);
             direction = Direction.UP;
             updatedArrayLength = updatedArrayLength-2;
         }
@@ -88,14 +90,14 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         if(direction == Direction.UP){
             for(int y = yEnd+negativeOffset; y >= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
                 stringBuilder.append( integerList.get(y).get(xStart) );
-                doSingleLineProcessor(stringBuilder, y, integerList.size());
+                doSingleLineProcessor(stringBuilder);
             }
+            doSpacing(stringBuilder);
             direction = Direction.RIGHT;
             xStart = xStart+positiveOffset;
         }
 
 
-        stringBuilder.append("```");
         return stringBuilder.toString();
     }
 
@@ -110,8 +112,12 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     }
 
 
-    public void doSingleLineProcessor(StringBuilder stringBuilder, int listSize, int elementCount){
+    public void doSingleLineProcessor(StringBuilder stringBuilder){
         stringBuilder.append(",");
+    }
+
+    public void doSpacing(StringBuilder stringBuilder){
+        stringBuilder.append(" ");
     }
 
 

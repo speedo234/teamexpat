@@ -78,6 +78,5 @@ class ArrayTraversalServiceTest {
         String actual = arrayTraversalService.doArrayTraversal(integerList1);
 
         assertThat(actual).isEqualTo(expected);
-
     }
 }

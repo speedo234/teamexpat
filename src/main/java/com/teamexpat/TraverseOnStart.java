@@ -55,7 +55,7 @@ public class TraverseOnStart implements ApplicationRunner {
 
 
     private void doGracefulShutdown(){
-        System.exit(0);
+//        System.exit(0);
     }
 
 }

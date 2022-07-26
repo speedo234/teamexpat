@@ -6,11 +6,13 @@ import com.teamexpat.exception.InvalidInputException;
 import com.teamexpat.service.ArrayTraversalService;
 import com.teamexpat.service.ValidationService;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -56,18 +58,17 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         Direction direction = Direction.RIGHT;
 
         final int fixedArrayLength = integerList.size()+negativeOffset;
-        int shrinkingArrayLength = integerList.size()+negativeOffset;
+        MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+negativeOffset);
 
 
         for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
 
-            doRightTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
-            doDownTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
-            doLeftTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
-            doUpTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
+            doRightTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
+            doDownTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
+            doLeftTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
+            doUpTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
 
-//            shrinkArrayLength( shrinkingArrayLength);
-            shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
+            shrinkArrayLength( shrinkingArrayLength);
         }
         return stringBuilder.toString();
     }
@@ -111,8 +112,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     }
 
 
-    private void shrinkArrayLength(int shrinkingArrayLength){
-        shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
+    private void shrinkArrayLength(MutableInt shrinkingArrayLength){
+        shrinkingArrayLength.decrement();
     }
 
 

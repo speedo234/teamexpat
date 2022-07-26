@@ -64,7 +64,7 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
                 doSingleLineProcessor(stringBuilder, x, integerList.size());
             }
             direction = Direction.DOWN;
-            xStart = xStart+positiveOffset;
+//            xStart = xStart+positiveOffset;
         }
         //
         if(direction == Direction.DOWN){
@@ -86,11 +86,12 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         }
         //
         if(direction == Direction.UP){
-            for(int y = yEnd+negativeOffset; y <= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
-                stringBuilder.append( integerList.get(y).get(xEnd) );
+            for(int y = yEnd+negativeOffset; y >= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                stringBuilder.append( integerList.get(y).get(xStart) );
                 doSingleLineProcessor(stringBuilder, y, integerList.size());
             }
             direction = Direction.RIGHT;
+            xStart = xStart+positiveOffset;
         }
 
 

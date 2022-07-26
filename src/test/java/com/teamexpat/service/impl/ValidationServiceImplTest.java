@@ -49,10 +49,10 @@ class ValidationServiceImplTest {
         final String inputFileDirectory = "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv";
         final File file = new File(inputFileDirectory);
 
-        boolean expected = true;
-
         CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader( new FileInputStream( file ) ));
         List<CSVRecord> csvRecordList = records.getRecords();
+
+        boolean expected = true;
 
         boolean actual = validationService.isValidArrayFormat(csvRecordList);
 

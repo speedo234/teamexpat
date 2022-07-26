@@ -37,18 +37,8 @@ public class TraverseOnStart implements ApplicationRunner {
         final List<CSVRecord> csvRecordsFromInputFile = fileService.getCSVRecordsFromInputFile(file);
         final List<List<Integer>> arrayFromCSVRecords = arrayTraversalService.getArrayFromCSVRecords(csvRecordsFromInputFile);
         String resultString = arrayTraversalService.doArrayTraversal(arrayFromCSVRecords);
-
         System.out.println(resultString);
-
-
-
-        doGracefulShutdown();
-
     }
 
-
-    private void doGracefulShutdown(){
-//        System.exit(0);
-    }
 
 }

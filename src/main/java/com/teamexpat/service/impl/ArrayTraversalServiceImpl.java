@@ -54,10 +54,10 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();
 
-        final int fixedArrayLength = integerList.size()+negativeOffset;
+        final int fixedArrayLength = integerList.size();
         MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+negativeOffset);
 
-        for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
+        for(int startingPoint = 0; startingPoint < (fixedArrayLength/2); startingPoint++ ){
             doRightTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doDownTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doLeftTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
@@ -93,7 +93,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             if(shrinkingArrayLength!=2)
                 appendComma(stringBuilder);
         }
-        appendSpace(stringBuilder);
+        if(shrinkingArrayLength!=2)
+            appendSpace(stringBuilder);
     }
 
 
@@ -102,7 +103,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             stringBuilder.append( integerList.get(y).get(startingPoint) );
             appendComma(stringBuilder);
         }
-        appendSpace(stringBuilder);
+        if(shrinkingArrayLength!=2)
+            appendSpace(stringBuilder);
     }
 
 

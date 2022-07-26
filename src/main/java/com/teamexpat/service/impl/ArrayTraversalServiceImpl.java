@@ -65,6 +65,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             doDownTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
             doLeftTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
             doUpTraversal( stringBuilder, shrinkingArrayLength, startingPoint, integerList);
+
+//            shrinkArrayLength( shrinkingArrayLength);
             shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
         }
         return stringBuilder.toString();
@@ -109,8 +111,8 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
     }
 
 
-    private void shrinkArrayLength(){
-
+    private void shrinkArrayLength(int shrinkingArrayLength){
+        shrinkingArrayLength = shrinkingArrayLength+negativeOffset;
     }
 
 

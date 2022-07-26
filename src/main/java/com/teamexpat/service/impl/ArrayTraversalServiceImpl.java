@@ -85,7 +85,9 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
             if(direction == Direction.LEFT){
                 for(int x = control-1; x >= startingPoint; x-- ){
                     stringBuilder.append( integerList.get(control).get( x ) );
-                    doSingleLineProcessor(stringBuilder);
+//                    doSingleLineProcessor(stringBuilder);
+                    if(control!=2)
+                        doSingleLineProcessor(stringBuilder);
                 }
                 doSpacing(stringBuilder);
                 direction = Direction.UP;

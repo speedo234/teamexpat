@@ -60,14 +60,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         final int fixedArrayLength = integerList.size()+negativeOffset;
         MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+negativeOffset);
 
-
         for(int startingPoint = 0; startingPoint < fixedArrayLength; startingPoint++ ){
-
             doRightTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doDownTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doLeftTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doUpTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
-
             shrinkArrayLength( shrinkingArrayLength);
         }
         return stringBuilder.toString();

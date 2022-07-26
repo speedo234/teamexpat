@@ -52,50 +52,59 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         StringBuilder stringBuilder = new StringBuilder();
         Direction direction = Direction.RIGHT;
         int updatedArrayLength = 0;
-        updatedArrayLength = integerList.size();
+        updatedArrayLength = integerList.size()-1;
         int xStart = 0, yStart = 0, xEnd = integerList.size()-1, yEnd= integerList.size()-1;
         final int positiveOffset = +1;
         final int negativeOffset = -1;
         //
+        int control = updatedArrayLength;
+        System.out.println(":::1:::updatedArrayLength=-> "+updatedArrayLength);
 
-        if(direction == Direction.RIGHT){
-            for(int x = xStart; x <= xEnd; x++ ){
-                stringBuilder.append( integerList.get(yStart).get(x) );//todo zeros should use the iteration index variable to move accordingly
-                doSingleLineProcessor(stringBuilder);
+
+        for(int startingPoint = 0; startingPoint < 1/*updatedArrayLength*/; startingPoint++ ){
+
+            if(direction == Direction.RIGHT){
+                for(int x = 0; x <= xEnd; x++ ){
+                    stringBuilder.append( integerList.get(startingPoint).get(x+startingPoint) );//todo zeros should use the iteration index variable to move accordingly
+                    doSingleLineProcessor(stringBuilder);
+                }
+                doSpacing(stringBuilder);
+                direction = Direction.DOWN;
             }
-            doSpacing(stringBuilder);
-            direction = Direction.DOWN;
-        }
-        //
-        if(direction == Direction.DOWN){
-            for(int y = yStart+positiveOffset; y <= yEnd; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
-                stringBuilder.append( integerList.get(y).get(xEnd) );
-                doSingleLineProcessor(stringBuilder);
+            //
+            if(direction == Direction.DOWN){
+                for(int y = startingPoint+positiveOffset; y <= control; y++ ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                    stringBuilder.append( integerList.get(y).get(control) );
+                    doSingleLineProcessor(stringBuilder);
+                }
+                doSpacing(stringBuilder);
+                direction = Direction.LEFT;
+                yStart = yStart+positiveOffset;
             }
-            doSpacing(stringBuilder);
-            direction = Direction.LEFT;
-            yStart = yStart+positiveOffset;
-        }
-        //
-        if(direction == Direction.LEFT){
-            for(int x = xEnd+negativeOffset; x >= 0; x-- ){
-                stringBuilder.append( integerList.get(yEnd).get(x) );
-                doSingleLineProcessor(stringBuilder);
+            //
+            if(direction == Direction.LEFT){
+                for(int x = control-1; x >= 0; x-- ){
+                    stringBuilder.append( integerList.get(control).get( x ) );
+                    doSingleLineProcessor(stringBuilder);
+                }
+                doSpacing(stringBuilder);
+                direction = Direction.UP;
             }
-            doSpacing(stringBuilder);
-            direction = Direction.UP;
-            updatedArrayLength = updatedArrayLength-2;
-        }
-        //
-        if(direction == Direction.UP){
-            for(int y = yEnd+negativeOffset; y >= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
-                stringBuilder.append( integerList.get(y).get(xStart) );
-                doSingleLineProcessor(stringBuilder);
+            //
+            if(direction == Direction.UP){
+                for(int y = control-1; y >= yStart; y-- ){//todo zeros or x variable should use the iteration index variable to move accordingly
+                    stringBuilder.append( integerList.get(y).get(startingPoint) );
+                    doSingleLineProcessor(stringBuilder);
+                }
+                doSpacing(stringBuilder);
+                direction = Direction.RIGHT;
+                xStart = xStart+positiveOffset;
             }
-            doSpacing(stringBuilder);
-            direction = Direction.RIGHT;
-            xStart = xStart+positiveOffset;
         }
+
+
+
+
 
 
         return stringBuilder.toString();

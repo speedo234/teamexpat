@@ -12,7 +12,6 @@ public class TeamexpatApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamexpatApplication.class, args);
-		LOGGER.info("Application Fired Up and Running...");
 	}
 
 }

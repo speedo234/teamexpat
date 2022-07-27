@@ -28,28 +28,6 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         this.validationService = validationService;
     }
 
-    public List<List<Integer>> getArrayFromCSVRecords(List<CSVRecord> csvRecordList) {
-        List<List<Integer>> listArrayList = new ArrayList<>();
-        List<Integer> integerList = null;
-        CSVRecord tempArrayLine = null;
-        for (int x = 0; x < csvRecordList.size(); x++) {
-            integerList = new ArrayList<>();
-
-            tempArrayLine = csvRecordList.get(x);
-
-            for(int i = 0; i < tempArrayLine.size(); i++){
-
-                //todo: refactor validation out to an independent loop
-                if(!validationService.isInputAnInteger( tempArrayLine.get(i).trim() ))
-                    throw new InvalidInputException("value '"+tempArrayLine.get(i).trim()+"' entered at index "+x+" "+i+" is NOT a valid integer...");
-
-                integerList.add( Integer.parseInt( tempArrayLine.get(i).trim() ) );
-            }
-            listArrayList.add(integerList);
-        }
-        return listArrayList;
-    }
-
 
     public String doArrayTraversal(List<List<Integer>> integerList){
         StringBuilder stringBuilder = new StringBuilder();

@@ -2,31 +2,21 @@ package com.teamexpat.service;
 
 import com.teamexpat.service.impl.ArrayTraversalServiceImpl;
 import com.teamexpat.service.impl.ValidationServiceImpl;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
@@ -42,22 +32,6 @@ class ArrayTraversalServiceTest {
 
     @BeforeEach
     void setUp() throws IOException {
-    }
-
-    @Test
-    void getArrayFromCSVRecords() throws IOException {
-
-        final String inputFileDirectory = "C:/Users/ibren/gitrepositories/java projects/teamexpat/src/main/resources/array.csv";
-        final File file = new File(inputFileDirectory);
-
-        CSVParser records = CSVFormat.EXCEL.parse(new InputStreamReader( new FileInputStream( file ) ));
-        List<CSVRecord> csvRecordList = records.getRecords();
-
-        when(validationService.isInputAnInteger(Mockito.anyString())).thenReturn(true);
-
-        List<List<Integer>> actual = arrayTraversalService.getArrayFromCSVRecords(csvRecordList);
-
-        assertThat(actual.size()).isGreaterThan(0);
     }
 
     @Test

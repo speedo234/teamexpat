@@ -1,10 +1,10 @@
 package com.teamexpat;
 
 
+import com.teamexpat.exception.ApplicationException;
 import com.teamexpat.service.ArrayTraversalService;
-import com.teamexpat.service.FileService;
+import com.teamexpat.service.ValidationService;
 import com.teamexpat.util.Utility;
-import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,29 +23,26 @@ public class TraverseOnStart implements ApplicationRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TraverseOnStart.class);
 
-    @Value("${input.file.directory}")
-    private String inputFileDirectory;
-
-    @Autowired
-    FileService fileService;
-
     @Autowired
     ArrayTraversalService arrayTraversalService;
 
+    @Autowired
+    ValidationService validationService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
         Integer[][] multidimensionalArray = Utility.getArrayForTraversal();
-        //
-        List<List<Integer>> listArrayList = Arrays.stream(multidimensionalArray)
-                .map(Arrays::asList)
-                .collect(Collectors.toList());
-        //
-        for(List<Integer> integerList: listArrayList){
-            System.out.println(integerList);
+
+        if(!validationService.isValueMissing(multidimensionalArray))
+            throw new ApplicationException("provided array has missing values in one or more elements.");
+
+        final List<List<Integer>> listArrayList = Utility.convertMultidimensionalArrayToList(multidimensionalArray);
+
+        for( List<Integer> list :listArrayList){
+            System.out.println(list);
         }
-        //
-        String resultString = arrayTraversalService.doArrayTraversal(listArrayList);
+
+        final String resultString = arrayTraversalService.doArrayTraversal(listArrayList);
         System.out.println(resultString);
     }
 

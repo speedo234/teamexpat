@@ -14,25 +14,28 @@ public class ValidationServiceImpl implements ValidationService {
 
 
 
-    public boolean isInputAnInteger( String number ){
-        try{
-            Integer.parseInt( number );
-            return true;
-        }catch (NumberFormatException nfe){
-            return false;
-        }
-
-    }
-
     @Override
-    public boolean isValidArrayFormat(List<CSVRecord> csvRecordList) {
+    public boolean isValueMissing(Integer[][] multidimensionalArray) {
+
         boolean response = true;
-        for(int i = 0; i < csvRecordList.size(); i++){
-            if( csvRecordList.size() != csvRecordList.get(i).size() ){
+        for(int y = 0; y < multidimensionalArray.length; y++){
+
+            for(int x = 0; x < multidimensionalArray.length; x++){
+
+                if( multidimensionalArray[y][x] == null ){
+                    response = false;
+                    break;
+                }
+            }
+        }
+        /*
+        for(int i = 0; i < integerArrays.length; i++){
+            if( integerArrays.length != integerArrays[i].length ){
                 response = false;
                 break;
             }
         }
+        * */
         return response;
     }
 

@@ -9,6 +9,13 @@ import java.util.stream.Collectors;
 public final class Utility {
 
 
+    /**
+     * <p>Generates and returns a multidimensional Integer array</p>
+     * <br>
+     * <p><code>Possible improvement</code> could be implemented by reading the array from a csv file instead of generating array within</p>
+     * <p>the code</p>
+     * @return a 4 by 4 multidimensional Integer array
+     */
     public static Integer[][] getArrayForTraversal(){
         Integer[][] integerArrays = new Integer[4][4];
         try{
@@ -39,6 +46,11 @@ public final class Utility {
     }
 
 
+    /**
+     * <p>This utility method converts a multidimensionalArray into a List</p>
+     * @param multidimensionalArray
+     * @return A List of Integer Lists
+     */
     public static List<List<Integer>> convertMultidimensionalArrayToList(Integer[][] multidimensionalArray){
         List<List<Integer>> listArrayList = Arrays.stream(multidimensionalArray)
                 .map(Arrays::asList)

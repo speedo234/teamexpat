@@ -16,13 +16,13 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public boolean isValueMissing(Integer[][] multidimensionalArray) {
-        boolean response = true;
+        boolean response = false;
         for(int y = 0; y < multidimensionalArray.length; y++){
 
             for(int x = 0; x < multidimensionalArray.length; x++){
 
                 if( multidimensionalArray[y][x] == null ){
-                    response = false;
+                    response = true;
                     break;
                 }
             }

@@ -33,7 +33,7 @@ public class TraverseOnStart implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         Integer[][] multidimensionalArray = Utility.getArrayForTraversal();
 
-        if(!validationService.isValueMissing(multidimensionalArray))
+        if(validationService.isValueMissing(multidimensionalArray))
             throw new ApplicationException("provided array has missing values in one or more elements.");
 
         final List<List<Integer>> listArrayList = Utility.convertMultidimensionalArrayToList(multidimensionalArray);

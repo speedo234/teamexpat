@@ -57,7 +57,7 @@ class ValidationServiceImplTest {
         integerArrays[3][2] = 15;
         integerArrays[3][3] = 16;
 
-        boolean expected = true;
+        boolean expected = false;
 
         boolean actual = validationService.isValueMissing(integerArrays);
 

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Utility {
+public final class Utility {
 
 
     public static Integer[][] getArrayForTraversal(){

@@ -34,7 +34,7 @@ class ValidationServiceImplTest {
 
 
     @Test
-    void isValidArrayFormat() throws IOException {
+    void isValueMissing() throws IOException {
 
         Integer[][] integerArrays = new Integer[4][4];
         integerArrays[0][0] = 1;

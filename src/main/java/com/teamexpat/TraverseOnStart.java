@@ -38,12 +38,12 @@ public class TraverseOnStart implements ApplicationRunner {
 
         final List<List<Integer>> listArrayList = Utility.convertMultidimensionalArrayToList(multidimensionalArray);
 
-        for( List<Integer> list :listArrayList){
-            System.out.println(list);
-        }
+//        for( List<Integer> list :listArrayList){
+//            System.out.println(list);
+//        }
 
         final String resultString = arrayTraversalService.doArrayTraversal(listArrayList);
-        System.out.println(resultString);
+        Utility.printResult(resultString);
     }
 
 

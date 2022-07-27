@@ -10,7 +10,7 @@ public interface ArrayTraversalService {
     /**
      * <p>This method traverses a List of Integer Lists in a clockwise direction.</p>
      * @param integerList
-     * @return A String containing the data in a one line format.
+     * @return A comma separated String.
      */
     String doArrayTraversal(List<List<Integer>> integerList);
 

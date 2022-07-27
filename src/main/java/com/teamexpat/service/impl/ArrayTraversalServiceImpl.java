@@ -16,8 +16,9 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
 
     ValidationService validationService;
 
-    private static final int positiveOffset = +1;
-    private static final int negativeOffset = -1;
+    private static final int POSITIVE_OFFSET = +1;
+    private static final int NEGATIVE_OFFSET = -1;
+    private static final int LOWER_LIMIT = 2;
 
 
     @Autowired
@@ -32,11 +33,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
         final int fixedArrayLength = integerList.size();
 
         //Used MutableInt to be able to pass this variable by reference and not pass by value
-        MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+negativeOffset);
+        MutableInt shrinkingArrayLength = new MutableInt(integerList.size()+NEGATIVE_OFFSET);
 
 
         //Used the startingPoint index to progressively shift the starting point for x-axis and y-axis with each iteration
-        for(int startingPoint = 0; startingPoint < (fixedArrayLength/2); startingPoint++ ){
+        for(int startingPoint = 0; startingPoint < (fixedArrayLength/LOWER_LIMIT); startingPoint++ ){
             doRightTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doDownTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
             doLeftTraversal( stringBuilder, shrinkingArrayLength.getValue(), startingPoint, integerList);
@@ -71,11 +72,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
      * @param integerList
      */
     private void doDownTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
-        for(int y = startingPoint+positiveOffset; y <= shrinkingArrayLength; y++ ){
+        for(int y = startingPoint+POSITIVE_OFFSET; y <= shrinkingArrayLength; y++ ){
             stringBuilder.append( integerList.get(y).get(shrinkingArrayLength) );
             appendComma(stringBuilder);
         }
-        if(shrinkingArrayLength!=2)
+        if(shrinkingArrayLength!=LOWER_LIMIT)
             appendSpace(stringBuilder);
     }
 
@@ -88,12 +89,12 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
      * @param integerList
      */
     private void doLeftTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
-        for(int x = shrinkingArrayLength+negativeOffset; x >= startingPoint; x-- ){
+        for(int x = shrinkingArrayLength+NEGATIVE_OFFSET; x >= startingPoint; x-- ){
             stringBuilder.append( integerList.get(shrinkingArrayLength).get( x ) );
-            if(shrinkingArrayLength!=2)
+            if(shrinkingArrayLength!=LOWER_LIMIT)
                 appendComma(stringBuilder);
         }
-        if(shrinkingArrayLength!=2)
+        if(shrinkingArrayLength!=LOWER_LIMIT)
             appendSpace(stringBuilder);
     }
 
@@ -106,11 +107,11 @@ public class ArrayTraversalServiceImpl implements ArrayTraversalService {
      * @param integerList
      */
     private void doUpTraversal(StringBuilder stringBuilder, int shrinkingArrayLength, int startingPoint, List<List<Integer>> integerList){
-        for(int y = shrinkingArrayLength+negativeOffset; y >= startingPoint+positiveOffset; y-- ){
+        for(int y = shrinkingArrayLength+NEGATIVE_OFFSET; y >= startingPoint+POSITIVE_OFFSET; y-- ){
             stringBuilder.append( integerList.get(y).get(startingPoint) );
             appendComma(stringBuilder);
         }
-        if(shrinkingArrayLength!=2)
+        if(shrinkingArrayLength!=LOWER_LIMIT)
             appendSpace(stringBuilder);
     }
 

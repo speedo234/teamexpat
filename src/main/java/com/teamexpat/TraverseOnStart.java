@@ -40,7 +40,7 @@ public class TraverseOnStart implements ApplicationRunner {
         final List<List<Integer>> listArrayList = Utility.convertMultidimensionalArrayToList(multidimensionalArray);
 
         final String resultString = arrayTraversalService.doArrayTraversal(listArrayList);
-        Utility.printResult(resultString);
+        Utility.printToConsole(resultString);
     }
 
 

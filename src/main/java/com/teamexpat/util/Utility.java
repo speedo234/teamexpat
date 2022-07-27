@@ -59,7 +59,11 @@ public final class Utility {
     }
 
 
-    public static void printResult(String result){
+    /**
+     * <p>This utility method simply prints out a supplied String to the console</p>
+     * @param result
+     */
+    public static void printToConsole(String result){
         System.out.println(result);
     }
 

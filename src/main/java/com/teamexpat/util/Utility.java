@@ -47,7 +47,7 @@ public final class Utility {
 
 
     /**
-     * <p>This utility method converts a multidimensionalArray into a List</p>
+     * <p>This utility method converts a multidimensionalArray into a List of Integer Lists</p>
      * @param multidimensionalArray
      * @return A List of Integer Lists
      */

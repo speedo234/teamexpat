@@ -31,16 +31,16 @@ public class TraverseOnStart implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Integer[][] multidimensionalArray = Utility.getArrayForTraversal();
+        traverse();
+    }
 
+
+    private void traverse(){
+        Integer[][] multidimensionalArray = Utility.getArrayForTraversal();
         if(validationService.isValueMissing(multidimensionalArray))
             throw new ApplicationException("provided array has missing values in one or more elements.");
 
         final List<List<Integer>> listArrayList = Utility.convertMultidimensionalArrayToList(multidimensionalArray);
-
-//        for( List<Integer> list :listArrayList){
-//            System.out.println(list);
-//        }
 
         final String resultString = arrayTraversalService.doArrayTraversal(listArrayList);
         Utility.printResult(resultString);
